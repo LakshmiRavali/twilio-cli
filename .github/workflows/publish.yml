@@ -45,7 +45,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            artifact_name: deb/twilio-v2.27.1_amd64.deb
+            artifact_name: deb/twilio_2.27.1-1_amd64.deb
             asset_name: twilio.deb
             command_name: sudo oclif-dev pack:deb
           - os: macos-latest
