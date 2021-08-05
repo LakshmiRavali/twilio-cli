@@ -1,11 +1,18 @@
 name: Cli Publish
-
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
 jobs:
+  build-chain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Run build-chain"
+        id: build-chain
+        uses: kiegroup/github-action-build-chain@v2.4
+        with:
+          definition-file: https://github.com/LakshmiRavali/twilio-cli-core/blob/main/.github/workflows/build.yml
   build:
     runs-on: ubuntu-latest
     strategy:
