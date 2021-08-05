@@ -5,15 +5,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-chain:
+#   build-chain:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: "Run build-chain"
+#         id: build-chain
+#         uses: kiegroup/github-action-build-chain@v2.5
+#         with:
+#           definition-file: https://github.com/LakshmiRavali/twilio-cli-core/blob/main/.github/workflows/build.yml
+#           flow-type: single
+  dispatch:
+    strategy:
+      matrix:
+        repo: ['LakshmiRavali/twilio-cli-core']
     runs-on: ubuntu-latest
     steps:
-      - name: "Run build-chain"
-        id: build-chain
-        uses: kiegroup/github-action-build-chain@v2.5
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
         with:
-          definition-file: https://github.com/LakshmiRavali/twilio-cli-core/blob/main/.github/workflows/build.yml
-          flow-type: single
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: ${{ matrix.repo }}
+          event-type: buildCliCore
   build:
     runs-on: ubuntu-latest
     strategy:
