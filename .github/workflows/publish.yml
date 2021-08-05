@@ -13,7 +13,7 @@ jobs:
         uses: kiegroup/github-action-build-chain@v2.4
         with:
           definition-file: https://github.com/LakshmiRavali/twilio-cli-core/blob/main/.github/workflows/build.yml
-          flow-type: main
+          flow-type: branch
   build:
     runs-on: ubuntu-latest
     strategy:
