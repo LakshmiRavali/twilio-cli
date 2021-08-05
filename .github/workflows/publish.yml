@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: "Run build-chain"
         id: build-chain
-        uses: kiegroup/github-action-build-chain@v2.4
+        uses: kiegroup/github-action-build-chain@v2.5
         with:
           definition-file: https://github.com/LakshmiRavali/twilio-cli-core/blob/main/.github/workflows/build.yml
   build:
