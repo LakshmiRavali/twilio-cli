@@ -7,29 +7,29 @@ on:
   workflow_dispatch:
 
 jobs:
-#   build-chain:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: "Run build-chain"
-#         id: build-chain
-#         uses: kiegroup/github-action-build-chain@v2.5
-#         with:
-#           definition-file: https://github.com/LakshmiRavali/twilio-cli-core/blob/main/.github/workflows/build.yml
-#           flow-type: single
-  build:
+  build-chain:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [10.x]
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: "Run build-chain"
+        id: build-chain
+        uses: kiegroup/github-action-build-chain@v2.5
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
-      - run: npm test
+          definition-file: https://raw.githubusercontent.com/LakshmiRavali/twilio-cli-core/main/.github/workflows/build.yml
+          flow-type: single
+#   build:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         node-version: [10.x]
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#           cache: 'npm'
+#       - run: npm ci
+#       - run: npm test
 
   #   release:
   #     runs-on: ubuntu-latest
