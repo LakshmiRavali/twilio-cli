@@ -1,5 +1,7 @@
 name: Cli Publish
 on:
+  repository_dispatch:
+    types: [ releaseCli ]
   push:
     branches: [ main ]
   workflow_dispatch:
@@ -14,21 +16,8 @@ jobs:
 #         with:
 #           definition-file: https://github.com/LakshmiRavali/twilio-cli-core/blob/main/.github/workflows/build.yml
 #           flow-type: single
-  releseCliCore:
-    strategy:
-      matrix:
-        repo: ['LakshmiRavali/twilio-cli-core']
-    runs-on: ubuntu-latest
-    steps:
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          repository: ${{ matrix.repo }}
-          event-type: buildCliCore
   build:
     runs-on: ubuntu-latest
-    needs: [releseCliCore]
     strategy:
       matrix:
         node-version: [10.x]
