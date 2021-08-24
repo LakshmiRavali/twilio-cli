@@ -11,7 +11,7 @@ echo "Git configurations"
 git config --global user.email "lakshmiravali.rimmalapudi@gmail.com"
 git config --global user.name "lakshmiravali"
 git add .
-commitMessage='fix: Updated api definitions changelog in CHANGES.md'
+commitMessage='fix: Updated api definitions changelog in CHANGES.md in cli'
 echo "Commit message:$commitMessage"
 git commit -m "$commitMessage"
 git push origin test_branch
