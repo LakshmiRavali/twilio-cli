@@ -3,7 +3,7 @@ on:
   repository_dispatch:
     types: [ releaseCli ]
   push:
-    branches: [ main ]
+    branches: [ test_branch ]
   workflow_dispatch:
 
 jobs:
