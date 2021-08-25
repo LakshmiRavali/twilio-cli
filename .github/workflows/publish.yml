@@ -9,8 +9,11 @@ on:
 jobs:
   releseCliCore:
     runs-on: ubuntu-latest
+    outputs:
+      changeLog: ${{ steps.clicore.outputs.workflow_id }}
     steps:
-      - uses: convictional/trigger-workflow-and-wait@v1.3.0
+      - uses: convictional/trigger-workflow-and-wait@v1.5.0
+        id: clicore
         with:
           owner: LakshmiRavali
           repo: twilio-cli-core
@@ -21,6 +24,8 @@ jobs:
           propagate_failure: true
           trigger_workflow: true
           wait_workflow: true
+      - run: echo ${{steps.clicore.outputs.workflow_id}}
+      - run: echo ${{steps.clicore.outputs.workflow_id.updateAPIDefinitions.outputs.changeLog}}
 #       - uses: felixp8/dispatch-and-wait@v0.1.0
 #         with:
 #           owner: LakshmiRavali
