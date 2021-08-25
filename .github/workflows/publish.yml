@@ -25,6 +25,7 @@ jobs:
           trigger_workflow: true
           wait_workflow: true
       - run: echo ${{steps.clicore.outputs.workflow_id}}
+      - run: echo ${{steps.clicore.outputs.workflow_url}}
       - run: echo ${{steps.clicore.outputs.workflow_id.updateAPIDefinitions.outputs.changeLog}}
 #       - uses: felixp8/dispatch-and-wait@v0.1.0
 #         with:
