@@ -59,7 +59,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - run: echo ${{ github.event.inputs.message }}
+      - run: echo ${{ github.event.inputs.changeLog }}
   test:
     runs-on: ubuntu-latest
     needs: [build]
@@ -72,7 +72,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - run: echo ${{ github.event.inputs.message }}
+      - run: echo ${{ github.event.inputs.changeLog }}
 #   updateAPIDefinitionsChangeLog:
 #     runs-on: ubuntu-latest
 #     needs: [build]
