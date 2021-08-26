@@ -62,7 +62,6 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - run: echo ${{ github.event.inputs.changeLog }}
   updateAPIDefinitionsChangeLog:
      runs-on: ubuntu-latest
      needs: [build]
