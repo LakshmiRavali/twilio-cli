@@ -55,7 +55,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - run: echo ${{ github.event.client_payload.changeLog }}
+      - run: echo ${{ github.event.client_payload.message }}
   test:
     runs-on: ubuntu-latest
     needs: [build]
@@ -68,7 +68,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - run: echo ${{ github.event.client_payload.changeLog }}
+      - run: echo ${{ github.event.client_payload.message }}
 #   updateAPIDefinitionsChangeLog:
 #     runs-on: ubuntu-latest
 #     needs: [build]
