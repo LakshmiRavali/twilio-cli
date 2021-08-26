@@ -5,6 +5,10 @@ on:
   push:
     branches: [ test_branch ]
   workflow_dispatch:
+    inputs:
+      changeLog:
+        description: 'Open API Changelog'     
+        required: true
 
 jobs:
 #   releseCliCore:
@@ -55,7 +59,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - run: echo ${{ github.event.client_payload.message }}
+      - run: echo ${{ github.event.inputs.message }}
   test:
     runs-on: ubuntu-latest
     needs: [build]
@@ -68,7 +72,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - run: echo ${{ github.event.client_payload.message }}
+      - run: echo ${{ github.event.inputs.message }}
 #   updateAPIDefinitionsChangeLog:
 #     runs-on: ubuntu-latest
 #     needs: [build]
