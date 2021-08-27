@@ -1,13 +1,13 @@
 #!/bin/sh
 echo "Running update changelog script"
 changeLog="$1"
+echo "$changeLog"
+node scripts/update-change-log.js "$changeLog"
 if [ "$changeLog" != '' ]; then
   changeLog="${changeLog//'%'/'%25'}"
   changeLog="${changeLog//$'\n'/'%0A'}" 
   changeLog="${changeLog//$'\r'/'%0D'}"
 fi
-echo "$changeLog"
-node scripts/update-change-log.js "$changeLog"
 echo "Git configurations"
 git config --global user.email "lakshmiravali.rimmalapudi@gmail.com"
 git config --global user.name "lakshmiravali"
