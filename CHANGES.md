@@ -1,3 +1,10 @@
+# [2.32.0](https://github.com/LakshmiRavali/twilio-cli/compare/2.31.0...2.32.0) (2021-08-27)
+
+
+### Features
+
+* Updated api definitions changelog in CHANGES.md ([3e8270d](https://github.com/LakshmiRavali/twilio-cli/commit/3e8270d5494253602af5cf685cecbee9bcb1a393))
+
 ---------------------------
   **Api**
   - Add Programmabled Voice SIP Refer call transfers () to usage records
