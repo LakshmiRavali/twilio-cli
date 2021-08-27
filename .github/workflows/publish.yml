@@ -55,7 +55,7 @@ jobs:
         node-version: [10.x]
     steps:
       - uses: actions/checkout@v2
-      - run: nom install
+      - run: npm install
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
