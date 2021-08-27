@@ -3,8 +3,8 @@ echo "Running update changelog script"
 changeLog = "$1"
 if [ "$changeLog" != '' ]; then
   changeLog="${changeLog//'%'/'%25'}"
-  changeLog="${changeLog//$'\\n'/'\n'}"
-  changeLog="${changeLog//$'\\r'/'\r'}"
+  changeLog="${changeLog//$'\n'/'%0A'}" 
+  changeLog="${changeLog//$'\r'/'%0D'}"
 fi
 node scripts/update-change-log.js "$changeLog"
 echo "Git configurations"
