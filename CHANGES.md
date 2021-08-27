@@ -17,6 +17,25 @@
 * Added script ([bbe54ee](https://github.com/LakshmiRavali/twilio-cli/commit/bbe54ee3cf46a1719a676b859d587dbf845bf6bd))
 * Created workflow file ([3aa2cba](https://github.com/LakshmiRavali/twilio-cli/commit/3aa2cbade0dba921ca4bdb9307ad1e28e5b69fa1))
 
+# [2.28.0](https://github.com/LakshmiRavali/twilio-cli/compare/2.27.1...2.28.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* Added all the changes ([095dc8b](https://github.com/LakshmiRavali/twilio-cli/commit/095dc8b79011e113db281c4286fdb959ff39e95a))
+* Created ([84832cc](https://github.com/LakshmiRavali/twilio-cli/commit/84832ccc74fbb56a2d3cab8ce9fb2fdc0c70b6d0))
+* created update ([fabaffc](https://github.com/LakshmiRavali/twilio-cli/commit/fabaffc4fc9094c08e4e183a5f6cb587562f4bd8))
+* Updated commit message ([#3](https://github.com/LakshmiRavali/twilio-cli/issues/3)) ([15cb692](https://github.com/LakshmiRavali/twilio-cli/commit/15cb69207481c83b2adfe94eae8e916e9bd1fe48))
+* Updated number ([ce3064b](https://github.com/LakshmiRavali/twilio-cli/commit/ce3064b227977df43a1eb997e807ca242c5d64d5))
+* Updated package.json and workflow file ([c0ac7a0](https://github.com/LakshmiRavali/twilio-cli/commit/c0ac7a0d0c328d79729d433753f17890260909b3))
+* Updated with release cli core working action ([56c7a88](https://github.com/LakshmiRavali/twilio-cli/commit/56c7a88d9f10f1530b194fe3757c55dab56f9251))
+
+
+### Features
+
+* Added script ([bbe54ee](https://github.com/LakshmiRavali/twilio-cli/commit/bbe54ee3cf46a1719a676b859d587dbf845bf6bd))
+* Created workflow file ([3aa2cba](https://github.com/LakshmiRavali/twilio-cli/commit/3aa2cbade0dba921ca4bdb9307ad1e28e5b69fa1))
+
 twilio-cli changelog
 =====================
 
