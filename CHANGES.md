@@ -1,4 +1,47 @@
-# [2.31.0](https://github.com/LakshmiRavali/twilio-cli/compare/2.30.0...2.31.0) (2021-08-27)
+---------------------------
+  **Api**
+  - Add Programmabled Voice SIP Refer call transfers () to usage records
+  - Add Flex Voice Usage category () to usage records
+  
+  **Conversations**
+  - Add  query parameter to Message resource read operation
+  
+  **Insights**
+  - Added  to enum processing_state_request
+  - Added abnormal session filter in Call Summaries
+  
+  **Messaging**
+  - Add brand_registration_sid as an optional query param for us_app_to_person_usecase api
+  
+  **Pricing**
+  - add trunking_numbers resource (v2)
+  - add trunking_country resource (v2)
+  
+  **Verify**
+  - Changed to private beta the  optional parameter on Verification creation.
+  - Added the optional parameter  to the list Challenges endpoint to define the list order.
+  
+  
+  ---------------------------
+  **Api**
+  - Corrected the , , and  data types for Conference, Participant, and Recording **(breaking change)**
+  - Made documentation for property  in the call api public. **(breaking change)**
+  - Added  in sip_credential_list_mapping and sip_ip_access_control_list_mapping APIs **(breaking change)**
+  
+  **Insights**
+  - Added new endpoint to fetch Call Summaries
+  
+  **Messaging**
+  - Add brand_type field to a2p brand_registration api
+  - Revert brand registration api update to add brand_type field
+  - Add brand_type field to a2p brand_registration api
+  
+  **Taskrouter**
+  - Add , , and  as Response Headers to all TaskRouter endpoints
+  
+  **Verify**
+  - Add  optional parameter on Verification creation.
+  - Include  as a channel type in the verifications API.# [2.31.0](https://github.com/LakshmiRavali/twilio-cli/compare/2.30.0...2.31.0) (2021-08-27)
 
 
 ### Features
