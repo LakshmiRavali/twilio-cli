@@ -6,6 +6,7 @@ if [ "$changeLog" != '' ]; then
   changeLog="${changeLog//$'\n'/'%0A'}" 
   changeLog="${changeLog//$'\r'/'%0D'}"
 fi
+echo "$changeLog"
 node scripts/update-change-log.js "$changeLog"
 echo "Git configurations"
 git config --global user.email "lakshmiravali.rimmalapudi@gmail.com"
