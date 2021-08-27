@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "Running update changelog script"
-changeLog = "$1"
+changeLog="$1"
 if [ "$changeLog" != '' ]; then
   changeLog="${changeLog//'%'/'%25'}"
   changeLog="${changeLog//$'\n'/'%0A'}" 
