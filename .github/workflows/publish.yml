@@ -149,6 +149,7 @@ jobs:
          id: sha256
          if: ${{matrix.publish == 'homebrew'}}
          run: |
+            sudo apt-get -y install coreutils
             sha256 = sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz
             echo "::set-output name=sha256::$sha256"
             echo "::set-output formula::${{ needs.get-tag.outputs.FORMULA }}"
