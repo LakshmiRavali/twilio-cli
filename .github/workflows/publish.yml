@@ -93,6 +93,7 @@ jobs:
       - name: Getting latest tag
         id: get-tag
         run: |
+         git fetch --prune --unshallow
          echo "::set-output name=TAG_NAME::$(git describe --tags $(git rev-list --tags --max-count=1))"
      
    oclif-release:
