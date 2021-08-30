@@ -86,7 +86,7 @@ jobs:
    get-tag:
      runs-on: ubuntu-latest
      outputs:
-      TAG_NAME: 2.27.1 #${{steps.get-tag.outputs.TAG_NAME}}
+      TAG_NAME: 2.29.0 #${{steps.get-tag.outputs.TAG_NAME}}
       FORMULA: twilio
      steps:
       - uses: actions/checkout@v2
@@ -166,16 +166,18 @@ jobs:
            token: ${{ secrets.REPO_ACCESS_TOKEN }}
        - name: Update Home Brew with latest sha and version
          run: |
-           version-pattern="[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"
-           formula-path = "Formula/${{needs.oclif-release.outputs.formula}}.rb"
-           sed -i.bak 's/${{needs.oclif-release.outputs.formula}}-v$version-pattern/${{needs.oclif-release.outputs.formula}}-v${{needs.oclif-release.outputs.version}}/g' $formula-path
-           sed -i.bak 's/version .*/version ${{needs.oclif-release.outputs.version}}/' $formula-path
+           version_pattern="[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"
+           formula_path="Formula/${{needs.oclif-release.outputs.formula}}.rb"
+           sed -i.bak "s/${{needs.oclif-release.outputs.formula}}-v$version_pattern/${{needs.oclif-release.outputs.formula}}-v${{needs.oclif-release.outputs.version}}/g" $formula_path
+           sed -i.bak 's/version .*/version ${{needs.oclif-release.outputs.version}}/' $formula_path
            sed -i.bak 's/sha256 .*/sha256 ${{needs.oclif-release.outputs.sha256}}/' $formula_path
            git config --global user.email "lakshmiravali.rimmalapudi@gmail.com"
            git config --global user.name "lakshmiravali"
            branch=$(git branch --show-current)
            echo "Current branch: $branch"
            git add -A
+           git commit -m "Added latest changes"
+           git push origin main
        - name: Invoke HomeBrew workflow
          uses: benc-uk/workflow-dispatch@v1
          with:
