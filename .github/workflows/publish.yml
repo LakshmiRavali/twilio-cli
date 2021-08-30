@@ -151,9 +151,9 @@ jobs:
          run: |
             brew install coreutils
             shaData=sudo sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz
-            echo "::set-output sha256::$shaData"
-            echo "::set-output formula::${{ needs.get-tag.outputs.FORMULA }}"
-            echo ""set-output version::${{needs.get-tag.outputs.TAG_NAME}}
+            echo "::set-output name=sha256::$shaData"
+            echo "::set-output name=formula::${{ needs.get-tag.outputs.FORMULA }}"
+            echo ""set-output name=version::${{needs.get-tag.outputs.TAG_NAME}}
    home-brew-release:
      name: Update and trigger homw brew release workflow
      runs-on: ubuntu-latest
