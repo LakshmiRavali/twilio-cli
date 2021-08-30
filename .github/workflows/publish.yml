@@ -165,8 +165,8 @@ jobs:
            version-pattern='[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*'
            formula-path = Formula/${{needs.oclif-release.outputs.formula}}.rb
            sed -i.bak 's/${{needs.oclif-release.outputs.formula}}-v$version-pattern/${{needs.oclif-release.outputs.formula}}-v${{needs.oclif-release.outputs.version}}/g' $formula-path
-           sed -i.bak 's/version .*/version \"${{needs.oclif-release.outputs.version}\"/' $formula-path
-           sed -i.bak 's/sha256 .*/sha256 \"${{needs.oclif-release.outputs.sha256}}\"/' $formula_path
+           sed -i.bak 's/version .*/version ${{needs.oclif-release.outputs.version}/' $formula-path
+           sed -i.bak 's/sha256 .*/sha256 ${{needs.oclif-release.outputs.sha256}}/' $formula_path
            git config --global user.email "lakshmiravali.rimmalapudi@gmail.com"
            git config --global user.name "lakshmiravali"
            branch=$(git branch --show-current)
