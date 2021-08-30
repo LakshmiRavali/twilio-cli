@@ -83,9 +83,21 @@ jobs:
   #       env:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   #         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+   get-tag:
+     runs-on: ubuntu-latest
+     outputs:
+      TAG_NAME: ${{steps.get-tag.outputs.TAG_NAME}}
+      FORMULA: twilio
+     steps:
+      - name: Getting latest tag
+        id: get-tag
+        run: |
+         echo "::set-output name=TAG_NAME::$(git describe --tags $(git rev-list --tags --max-count=1))"
+     
    oclif-release:
      name: Publish for ${{ matrix.os }}
      runs-on: ${{ matrix.os }}
+     needs: [get-tag]
      outputs:
        sha256: ${{ steps.sha256.outputs.sha256 }}
        formula: ${{ steps.sha256.outputs.formula }}
@@ -95,30 +107,26 @@ jobs:
        matrix:
          include:
            - os: ubuntu-latest
-             asset_name: ${{ env.FORMULA }}-${{ steps.get-tag.outputs.TAG_NAME }}
+             asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}
              command_name: sudo oclif-dev pack
              publish: homebrew
            - os: ubuntu-latest
-             artifact_name: deb/${{ env.FORMULA }}_${{ steps.get-tag.outputs.TAG_NAME }}-1_amd64.deb
-             asset_name: ${{ env.FORMULA }}-${{ steps.get-tag.outputs.TAG_NAME }}.deb
+             artifact_name: deb/${{ needs.get-tag.outputs.FORMULA }}_${{ needs.get-tag.outputs.TAG_NAME }}-1_amd64.deb
+             asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.deb
              command_name: sudo oclif-dev pack:deb
              publish: github
            - os: macos-latest
-             artifact_name: win/${{ env.FORMULA }-v${{ steps.get-tag.outputs.TAG_NAME }}-x86.exe
-             asset_name: ${{ env.FORMULA }}-${{ steps.get-tag.outputs.TAG_NAME }}.exe
+             artifact_name: win/${{ needs.get-tag.outputs.FORMULA }-v${{ needs.get-tag.outputs.TAG_NAME }}-x86.exe
+             asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.exe
              command_name: oclif-dev pack:win
              publish: github
            - os: macos-latest
-             artifact_name: macos/${{ env.FORMULA }-v${{ steps.get-tag.outputs.TAG_NAME }}.pkg
-             asset_name: ${{ env.FORMULA }}-${{ steps.get-tag.outputs.TAG_NAME }}.pkg
+             artifact_name: macos/${{ needs.get-tag.outputs.FORMULA }-v${{ needs.get-tag.outputs.TAG_NAME }}.pkg
+             asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.pkg
              command_name: oclif-dev pack:macos
              publish: github
 
      steps:
-       - name: Getting latest tag
-         id: get-tag
-         run: |
-           echo "::set-output name=TAG_NAME::$(git describe --tags $(git rev-list --tags --max-count=1))"
        - run: npm cache clear & npm ci
        - run: npm install -g @oclif/dev-cli
        - run: |
@@ -140,8 +148,8 @@ jobs:
          run: |
             sha256 = sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz
             echo "::set-output name=sha256::$sha256"
-            echo "::set-output formula::${{ env.FORMULA }}"
-            echo ""set-output version::${{steps.get-tag.outputs.TAG_NAME}}
+            echo "::set-output formula::${{ needs.get-tag.outputs.FORMULA }}"
+            echo ""set-output version::${{needs.get-tag.outputs.TAG_NAME}}
    home-brew-release:
      name: Update and trigger homw brew release workflow
      runs-on: ubuntu-latest
