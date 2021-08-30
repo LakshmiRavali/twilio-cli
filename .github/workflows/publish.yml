@@ -116,12 +116,12 @@ jobs:
              command_name: sudo oclif-dev pack:deb
              publish: github
            - os: macos-latest
-             artifact_name: win/${{ needs.get-tag.outputs.FORMULA }-v${{ needs.get-tag.outputs.TAG_NAME }}-x86.exe
+             artifact_name: win/${{ needs.get-tag.outputs.FORMULA }}-v${{ needs.get-tag.outputs.TAG_NAME }}-x86.exe
              asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.exe
              command_name: oclif-dev pack:win
              publish: github
            - os: macos-latest
-             artifact_name: macos/${{ needs.get-tag.outputs.FORMULA }-v${{ needs.get-tag.outputs.TAG_NAME }}.pkg
+             artifact_name: macos/${{ needs.get-tag.outputs.FORMULA }}-v${{ needs.get-tag.outputs.TAG_NAME }}.pkg
              asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.pkg
              command_name: oclif-dev pack:macos
              publish: github
