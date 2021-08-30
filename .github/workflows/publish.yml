@@ -89,6 +89,7 @@ jobs:
       TAG_NAME: ${{steps.get-tag.outputs.TAG_NAME}}
       FORMULA: twilio
      steps:
+      - uses: actions/checkout@v2
       - name: Getting latest tag
         id: get-tag
         run: |
