@@ -86,7 +86,7 @@ jobs:
    get-tag:
      runs-on: ubuntu-latest
      outputs:
-      TAG_NAME: 2.29.0 #${{steps.get-tag.outputs.TAG_NAME}}
+      TAG_NAME: 2.27.1 #${{steps.get-tag.outputs.TAG_NAME}}
       FORMULA: twilio
      steps:
       - uses: actions/checkout@v2
