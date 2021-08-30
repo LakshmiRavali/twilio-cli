@@ -108,7 +108,7 @@ jobs:
        fail-fast: false
        matrix:
          include:
-           - os: ubuntu-latest
+           - os: macos-latest
              asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}
              command_name: sudo oclif-dev pack
              publish: homebrew
@@ -149,7 +149,7 @@ jobs:
          id: sha256
          if: ${{matrix.publish == 'homebrew'}}
          run: |
-            sudo apt-get -y install coreutils
+            brew install coreutils
             sha256 = sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz
             echo "::set-output name=sha256::$sha256"
             echo "::set-output formula::${{ needs.get-tag.outputs.FORMULA }}"
