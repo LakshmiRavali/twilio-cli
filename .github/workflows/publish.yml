@@ -5,12 +5,13 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
-    cli-branch:
-      description: 'Run workflow in cli branch'
-      default: main
-    home-brew-branch:
-      description: 'Run workflow in home brew branch'
-      default: main
+    inputs:
+      cli-branch:
+        description: 'Run workflow in cli branch'
+        default: main
+      home-brew-branch:
+        description: 'Run workflow in home brew branch'
+        default: main
 
 jobs:
 #  releseCliCore:
@@ -133,10 +134,10 @@ jobs:
            file: dist/${{ matrix.artifact_name }}
            asset_name: ${{ matrix.asset_name }}
            tag: ${{ steps.get-tag.outputs.TAG_NAME }}
-        - name: Caliculate sha of oclif dev pack
-          id: sha256
-          if: ${{matrix.publish == 'homebrew'}}
-          run: |
+       - name: Caliculate sha of oclif dev pack
+         id: sha256
+         if: ${{matrix.publish == 'homebrew'}}
+         run: |
             sha256 = sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz
             echo "::set-output name=sha256::$sha256"
             echo "::set-output formula::${{ env.FORMULA }}"
