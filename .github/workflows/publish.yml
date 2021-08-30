@@ -144,7 +144,7 @@ jobs:
            repo_token: ${{ secrets.GITHUB_TOKEN }}
            file: dist/${{ matrix.artifact_name }}
            asset_name: ${{ matrix.asset_name }}
-           tag: ${{ steps.get-tag.outputs.TAG_NAME }}
+           tag: ${{ needs.get-tag.outputs.TAG_NAME }}
        - name: Caliculate sha of oclif dev pack
          id: sha256
          if: ${{matrix.publish == 'homebrew'}}
