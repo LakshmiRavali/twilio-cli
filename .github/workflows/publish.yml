@@ -12,6 +12,8 @@ on:
       home-brew-branch:
         description: 'Run workflow in home brew branch'
         default: main
+env:
+  FORMULA: twilio
 
 jobs:
 #  releseCliCore:
@@ -88,8 +90,6 @@ jobs:
        sha256: ${{ steps.sha256.outputs.sha256 }}
        formula: ${{ steps.sha256.outputs.formula }}
        version: ${{ steps.sha256.outputs.version }}
-     env:
-       FORMULA: twilio
      strategy:
        fail-fast: false
        matrix:
