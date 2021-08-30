@@ -95,22 +95,22 @@ jobs:
        matrix:
          include:
            - os: ubuntu-latest
-             asset_name: ${{ env.FORMULA }-${{ steps.get-tag.outputs.TAG_NAME }}
+             asset_name: ${{ env.FORMULA }}-${{ steps.get-tag.outputs.TAG_NAME }}
              command_name: sudo oclif-dev pack
              publish: homebrew
            - os: ubuntu-latest
              artifact_name: deb/${{ env.FORMULA }}_${{ steps.get-tag.outputs.TAG_NAME }}-1_amd64.deb
-             asset_name: ${{ env.FORMULA }-${{ steps.get-tag.outputs.TAG_NAME }}.deb
+             asset_name: ${{ env.FORMULA }}-${{ steps.get-tag.outputs.TAG_NAME }}.deb
              command_name: sudo oclif-dev pack:deb
              publish: github
            - os: macos-latest
              artifact_name: win/${{ env.FORMULA }-v${{ steps.get-tag.outputs.TAG_NAME }}-x86.exe
-             asset_name: ${{ env.FORMULA }-${{ steps.get-tag.outputs.TAG_NAME }}.exe
+             asset_name: ${{ env.FORMULA }}-${{ steps.get-tag.outputs.TAG_NAME }}.exe
              command_name: oclif-dev pack:win
              publish: github
            - os: macos-latest
              artifact_name: macos/${{ env.FORMULA }-v${{ steps.get-tag.outputs.TAG_NAME }}.pkg
-             asset_name: ${{ env.FORMULA }-${{ steps.get-tag.outputs.TAG_NAME }}.pkg
+             asset_name: ${{ env.FORMULA }}-${{ steps.get-tag.outputs.TAG_NAME }}.pkg
              command_name: oclif-dev pack:macos
              publish: github
 
