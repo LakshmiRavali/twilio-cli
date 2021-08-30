@@ -127,6 +127,7 @@ jobs:
              publish: github
 
      steps:
+       - uses: actions/checkout@v2
        - run: npm cache clear & npm ci
        - run: npm install -g @oclif/dev-cli
        - run: |
