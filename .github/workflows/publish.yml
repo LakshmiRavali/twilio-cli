@@ -86,7 +86,7 @@ jobs:
    get-tag:
      runs-on: ubuntu-latest
      outputs:
-      TAG_NAME: ${{steps.get-tag.outputs.TAG_NAME}}
+      TAG_NAME: 2.27.1 #${{steps.get-tag.outputs.TAG_NAME}}
       FORMULA: twilio
      steps:
       - uses: actions/checkout@v2
@@ -150,8 +150,8 @@ jobs:
          if: ${{matrix.publish == 'homebrew'}}
          run: |
             brew install coreutils
-            sha256 = sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz
-            echo "::set-output name=sha256::$sha256"
+            shaData=sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz
+            echo "::set-output sha256::$shaData"
             echo "::set-output formula::${{ needs.get-tag.outputs.FORMULA }}"
             echo ""set-output version::${{needs.get-tag.outputs.TAG_NAME}}
    home-brew-release:
