@@ -191,5 +191,5 @@ jobs:
            token: ${{ secrets.REPO_ACCESS_TOKEN }}
            repo: LakshmiRavali/homebrew-brew
            ref: ${{ github.event.inputs.home-brew-branch }}
-           inputs: '{ "formula": ${{ needs.oclif-release.outputs.formula }}, "version": "${{needs.oclif-release.outputs.version}}", "sha": "${{needs.oclif-release.outputs.sha256}}", "pre-release": "false" }'
+           inputs: '{ "formula": "${{needs.oclif-release.outputs.formula}}", "version": "${{needs.oclif-release.outputs.version}}", "sha": "${{needs.oclif-release.outputs.sha256}}", "pre-release": "false" }'
 
