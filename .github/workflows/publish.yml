@@ -162,33 +162,34 @@ jobs:
      runs-on: ubuntu-latest
      needs: [oclif-release]
      steps:
-       - name: Checkout to homebrew
-         uses: actions/checkout@v2
-         with:
-           repository: 'LakshmiRavali/homebrew-brew'
-           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-       - name: Update Home Brew with latest sha and version
-         run: |
-           echo "${{needs.oclif-release.outputs.formula}}"
-           echo "${{needs.oclif-release.outputs.version}}"
-           echo "${{needs.oclif-release.outputs.sha256}}"
-           version_pattern="[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"
-           formula_path="Formula/${{needs.oclif-release.outputs.formula}}.rb"
-           sed -i.bak "s/${{needs.oclif-release.outputs.formula}}-v$version_pattern/${{needs.oclif-release.outputs.formula}}-v${{needs.oclif-release.outputs.version}}/g" $formula_path
-           sed -i.bak 's/version .*/version ${{needs.oclif-release.outputs.version}}/' $formula_path
-           sed -i.bak 's/sha256 .*/sha256 ${{needs.oclif-release.outputs.sha256}}/' $formula_path
-           git config --global user.email "lakshmiravali.rimmalapudi@gmail.com"
-           git config --global user.name "lakshmiravali"
-           branch=$(git branch --show-current)
-           echo "Current branch: $branch"
-           git add -A
-           git commit -m "Added latest changes"
-           git push origin main
+#        - name: Checkout to homebrew
+#          uses: actions/checkout@v2
+#          with:
+#            repository: 'LakshmiRavali/homebrew-brew'
+#            token: ${{ secrets.REPO_ACCESS_TOKEN }}
+#        - name: Update Home Brew with latest sha and version
+#          run: |
+#            echo "${{needs.oclif-release.outputs.formula}}"
+#            echo "${{needs.oclif-release.outputs.version}}"
+#            echo "${{needs.oclif-release.outputs.sha256}}"
+#            version_pattern="[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"
+#            formula_path="Formula/${{needs.oclif-release.outputs.formula}}.rb"
+#            sed -i.bak "s/${{needs.oclif-release.outputs.formula}}-v$version_pattern/${{needs.oclif-release.outputs.formula}}-v${{needs.oclif-release.outputs.version}}/g" $formula_path
+#            sed -i.bak 's/version .*/version ${{needs.oclif-release.outputs.version}}/' $formula_path
+#            sed -i.bak 's/sha256 .*/sha256 ${{needs.oclif-release.outputs.sha256}}/' $formula_path
+#            git config --global user.email "lakshmiravali.rimmalapudi@gmail.com"
+#            git config --global user.name "lakshmiravali"
+#            branch=$(git branch --show-current)
+#            echo "Current branch: $branch"
+#            git add -A
+#            git commit -m "Added latest changes"
+#            git push origin main
        - name: Invoke HomeBrew workflow
          uses: benc-uk/workflow-dispatch@v1
          with:
-           workflow: HomeBrew Release
-           token: ${{ secrets.HOME_BREW_ACCESS_TOKEN }}
+           workflow: Homebrew Release
+           token: ${{ secrets.REPO_ACCESS_TOKEN }}
            repo: LakshmiRavali/homebrew-brew
            ref: ${{ github.event.inputs.home-brew-branch }}
+           inputs: '{ "formula": ${{ needs.oclif-release.outputs.formula }}, "version": "${{needs.oclif-release.outputs.version}}", "sha": "${{needs.oclif-release.outputs.sha256}}", "pre-release": "false" }'
 
