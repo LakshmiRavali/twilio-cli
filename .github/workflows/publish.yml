@@ -154,6 +154,10 @@ jobs:
             echo "::set-output name=sha256::$shaData"
             echo "::set-output name=formula::${{ needs.get-tag.outputs.FORMULA }}"
             echo ""set-output name=version::${{needs.get-tag.outputs.TAG_NAME}}
+       - run: |
+            echo "${{steps.sha256.outouts.formula}}"
+            echo "${{steps.sha256.outputs.sha256}}"
+            echo "${{steps.sha256.outputs.version}}"
    home-brew-release:
      name: Update and trigger homw brew release workflow
      runs-on: ubuntu-latest
@@ -166,6 +170,9 @@ jobs:
            token: ${{ secrets.REPO_ACCESS_TOKEN }}
        - name: Update Home Brew with latest sha and version
          run: |
+           echo "${{needs.oclif-release.outputs.formula}}"
+           echo "${{needs.oclif-release.outputs.version}}"
+           echo "${{needs.oclif-release.outputs.sha256}}"
            version_pattern="[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"
            formula_path="Formula/${{needs.oclif-release.outputs.formula}}.rb"
            sed -i.bak "s/${{needs.oclif-release.outputs.formula}}-v$version_pattern/${{needs.oclif-release.outputs.formula}}-v${{needs.oclif-release.outputs.version}}/g" $formula_path
