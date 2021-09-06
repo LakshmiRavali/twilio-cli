@@ -1,4 +1,4 @@
-name: Cli Publish
+name: Cli Release
 on:
   repository_dispatch:
     types: [ releaseCli ]
