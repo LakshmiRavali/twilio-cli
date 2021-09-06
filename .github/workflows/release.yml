@@ -51,7 +51,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - name: Semantic Release runs
-        run: npm install && npx semantic-release -t \${version}
+        run: npx semantic-release -t \${version}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   update-release:
