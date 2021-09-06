@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Update Changelog
         run: |
-          bash scripts/commit-api-spec-change-log.sh "${{ github.event.inputs.changeLog }}" ${{ github.event.inputs.versionType }}
+          bash .github/scripts/commit-api-spec-change-log.sh "${{ github.event.inputs.changeLog }}" ${{ github.event.inputs.versionType }}
   release:
     runs-on: ubuntu-latest
     needs: [update-api-definitions-changelog]
