@@ -16,7 +16,7 @@ jobs:
       matrix:
         node-version: [14.x]
     steps:
-      - name: Checkout to cli
+      - name: Checkout cli
         uses: actions/checkout@v2
       - name: NPM Install
         run: npm install
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     steps:
-      - name: Checkout to cli
+      - name: Checkout cli
         uses: actions/checkout@v2
       - name: Update Changelog
         run: |
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [update-api-definitions-changelog]
     steps:
-      - name: Checkout to cli
+      - name: Checkout cli
         uses: actions/checkout@v2
       - name: Run git and npm update
         run: |
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ release ]
     steps:
-      - name: Checkout to cli
+      - name: Checkout cli
         uses: actions/checkout@v2
       - name: Getting tag
         id: get-tag
@@ -75,4 +75,4 @@ jobs:
           TAG_NAME: ${{steps.get-tag.outputs.TAG_NAME}}
         with:
           is_append_body: true
-          body: ${{ github.event.inputs.changeLog }}
+          body: ${{ github.event.inputs.change-log }}
