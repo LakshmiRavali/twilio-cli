@@ -6,9 +6,6 @@ on:
     branches: [ main ]
   workflow_dispatch:
     inputs:
-      cli-branch:
-        description: 'Run workflow in cli branch'
-        default: main
       home-brew-branch:
         description: 'Run workflow in home brew branch'
         default: main
@@ -145,13 +142,16 @@ jobs:
            file: dist/${{ matrix.artifact_name }}
            asset_name: ${{ matrix.asset_name }}
            tag: ${{ needs.get-tag.outputs.TAG_NAME }}
+       - name: Configure AWS credentials from Test account
+         uses: aws-actions/configure-aws-credentials@v1
+         with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
        - name: Caliculate sha of oclif dev pack
          id: sha256
          if: ${{matrix.publish == 'homebrew'}}
          run: npx oclif-dev publish
-         env:
-            AWS_ACCESS_KEY_ID=: ${{secrets.AWS_ACCESS_KEY_ID}}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 #          run: |
 #             brew install coreutils
 #             echo "::set-output name=sha256::$(sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz | awk '{print $1}')"
