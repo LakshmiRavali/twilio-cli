@@ -83,55 +83,55 @@ jobs:
   #       env:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   #         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-   get-tag:
-     runs-on: ubuntu-latest
-     outputs:
-      TAG_NAME: 2.27.1 #${{steps.get-tag.outputs.TAG_NAME}}
-      FORMULA: twilio
-     steps:
-      - uses: actions/checkout@v2
-      - name: Getting latest tag
-        id: get-tag
-        run: |
-         git fetch --prune --unshallow
-         echo "::set-output name=TAG_NAME::$(git describe --tags $(git rev-list --tags --max-count=1))"
+#    get-tag:
+#      runs-on: ubuntu-latest
+#      outputs:
+#       TAG_NAME: 2.27.1 #${{steps.get-tag.outputs.TAG_NAME}}
+#       FORMULA: twilio
+#      steps:
+#       - uses: actions/checkout@v2
+#       - name: Getting latest tag
+#         id: get-tag
+#         run: |
+#          git fetch --prune --unshallow
+#          echo "::set-output name=TAG_NAME::$(git describe --tags $(git rev-list --tags --max-count=1))"
      
    oclif-release:
      name: Publish for ${{ matrix.os }}
      runs-on: ${{ matrix.os }}
-     needs: [get-tag]
-     outputs:
-       sha256: ${{ steps.sha256.outputs.sha256 }}
-       formula: ${{ steps.sha256.outputs.formula }}
-       version: ${{ steps.sha256.outputs.version }}
+#      needs: [get-tag]
+#      outputs:
+#        sha256: ${{ steps.sha256.outputs.sha256 }}
+#        formula: ${{ steps.sha256.outputs.formula }}
+#        version: ${{ steps.sha256.outputs.version }}
      strategy:
        fail-fast: false
        matrix:
          include:
            - os: macos-latest
              asset_name: ${{ needs.get-tag.outputs.FORMULA }}-v${{ needs.get-tag.outputs.TAG_NAME }}
-             command_name: sudo oclif-dev pack
+             command_name: npx oclif-dev pack
              publish: homebrew
-           - os: ubuntu-latest
-             artifact_name: deb/${{ needs.get-tag.outputs.FORMULA }}_${{ needs.get-tag.outputs.TAG_NAME }}-1_amd64.deb
-             asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.deb
-             command_name: sudo oclif-dev pack:deb
-             publish: github
-           - os: macos-latest
-             artifact_name: win/${{ needs.get-tag.outputs.FORMULA }}-v${{ needs.get-tag.outputs.TAG_NAME }}-x86.exe
-             asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.exe
-             command_name: oclif-dev pack:win
-             publish: github
-           - os: macos-latest
-             artifact_name: macos/${{ needs.get-tag.outputs.FORMULA }}-v${{ needs.get-tag.outputs.TAG_NAME }}.pkg
-             asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.pkg
-             command_name: oclif-dev pack:macos
-             publish: github
+#            - os: ubuntu-latest
+#              artifact_name: deb/${{ needs.get-tag.outputs.FORMULA }}_${{ needs.get-tag.outputs.TAG_NAME }}-1_amd64.deb
+#              asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.deb
+#              command_name: sudo oclif-dev pack:deb
+#              publish: github
+#            - os: macos-latest
+#              artifact_name: win/${{ needs.get-tag.outputs.FORMULA }}-v${{ needs.get-tag.outputs.TAG_NAME }}-x86.exe
+#              asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.exe
+#              command_name: oclif-dev pack:win
+#              publish: github
+#            - os: macos-latest
+#              artifact_name: macos/${{ needs.get-tag.outputs.FORMULA }}-v${{ needs.get-tag.outputs.TAG_NAME }}.pkg
+#              asset_name: ${{ needs.get-tag.outputs.FORMULA }}-${{ needs.get-tag.outputs.TAG_NAME }}.pkg
+#              command_name: oclif-dev pack:macos
+#              publish: github
 
      steps:
        - uses: actions/checkout@v2
        - run: npm cache clear & npm ci
-       - run: npm install -g @oclif/dev-cli
+#        - run: npm install -g @oclif/dev-cli
        - run: |
            if [ "$RUNNER_OS" == "macOS" ]; then
              brew install makensis
@@ -148,20 +148,24 @@ jobs:
        - name: Caliculate sha of oclif dev pack
          id: sha256
          if: ${{matrix.publish == 'homebrew'}}
-         run: |
-            brew install coreutils
-            echo "::set-output name=sha256::$(sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz | awk '{print $1}')"
-            echo "::set-output name=formula::${{ needs.get-tag.outputs.FORMULA }}"
-            echo "::set-output name=version::${{needs.get-tag.outputs.TAG_NAME}}"
-       - run: |
-            echo "${{steps.sha256.outouts.formula}}"
-            echo "${{steps.sha256.outputs.sha256}}"
-            echo "${{steps.sha256.outputs.version}}"
-   home-brew-release:
-     name: Update and trigger homw brew release workflow
-     runs-on: ubuntu-latest
-     needs: [oclif-release]
-     steps:
+         run: npx oclif-dev publish
+         env:
+            AWS_ACCESS_KEY_ID=: ${{secrets.AWS_ACCESS_KEY_ID}}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          run: |
+#             brew install coreutils
+#             echo "::set-output name=sha256::$(sha256sum dist/${{ matrix.asset_name }}/${{ matrix.asset_name }}.tar.gz | awk '{print $1}')"
+#             echo "::set-output name=formula::${{ needs.get-tag.outputs.FORMULA }}"
+#             echo "::set-output name=version::${{needs.get-tag.outputs.TAG_NAME}}"
+#        - run: |
+#             echo "${{steps.sha256.outouts.formula}}"
+#             echo "${{steps.sha256.outputs.sha256}}"
+#             echo "${{steps.sha256.outputs.version}}"
+#    home-brew-release:
+#      name: Update and trigger homw brew release workflow
+#      runs-on: ubuntu-latest
+#      needs: [oclif-release]
+#      steps:
 #        - name: Checkout to homebrew
 #          uses: actions/checkout@v2
 #          with:
@@ -184,12 +188,12 @@ jobs:
 #            git add -A
 #            git commit -m "Added latest changes"
 #            git push origin main
-       - name: Invoke HomeBrew workflow
-         uses: benc-uk/workflow-dispatch@v1
-         with:
-           workflow: Homebrew Release
-           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-           repo: LakshmiRavali/homebrew-brew
-           ref: ${{ github.event.inputs.home-brew-branch }}
-           inputs: '{ "formula": "${{needs.oclif-release.outputs.formula}}", "version": "${{needs.oclif-release.outputs.version}}", "sha": "${{needs.oclif-release.outputs.sha256}}", "pre-release": "false" }'
+#        - name: Invoke HomeBrew workflow
+#          uses: benc-uk/workflow-dispatch@v1
+#          with:
+#            workflow: Homebrew Release
+#            token: ${{ secrets.REPO_ACCESS_TOKEN }}
+#            repo: LakshmiRavali/homebrew-brew
+#            ref: ${{ github.event.inputs.home-brew-branch }}
+#            inputs: '{ "formula": "${{needs.oclif-release.outputs.formula}}", "version": "${{needs.oclif-release.outputs.version}}", "sha": "${{needs.oclif-release.outputs.sha256}}", "pre-release": "false" }'
 
