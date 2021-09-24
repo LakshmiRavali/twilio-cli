@@ -28,15 +28,15 @@ jobs:
           - os: ubuntu-latest
             artifact_name: deb/${{ github.event.inputs.formula }}_${{ needs.get-tag.outputs.TAG_NAME }}-1_amd64.deb
             asset_name: ${{ github.event.inputs.formula }}-${{ needs.get-tag.outputs.TAG_NAME }}.deb
-            command_name: sudo oclif-dev pack:deb
+            command_name: npx oclif-dev pack:deb
           - os: macos-latest
             artifact_name: win/${{ github.event.inputs.formula }}-v${{ needs.get-tag.outputs.TAG_NAME }}-x86.exe
             asset_name: ${{ github.event.inputs.formula }}-${{ needs.get-tag.outputs.TAG_NAME }}.exe
-            command_name: oclif-dev pack:win
+            command_name: npx oclif-dev pack:win
           - os: macos-latest
             artifact_name: macos/${{ github.event.inputs.formula }}-v${{ needs.get-tag.outputs.TAG_NAME }}.pkg
             asset_name: ${{ github.event.inputs.formula }}-${{ needs.get-tag.outputs.TAG_NAME }}.pkg
-            command_name: oclif-dev pack:macos
+            command_name: npx oclif-dev pack:macos
 
     steps:
       - uses: actions/checkout@v2
