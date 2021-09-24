@@ -66,6 +66,7 @@ const updatePlatformExecutables = async () => {
       }
     )
     const duplicate_asset = assets.find(a => a.name === assetName)
+    core.info(`Duplicate asset: ${duplicate_asset}`);
     if (duplicate_asset !== undefined) {
       if (overwrite) {
         core.debug(
@@ -77,7 +78,7 @@ const updatePlatformExecutables = async () => {
           asset_id: duplicate_asset.id
         })
       } else {
-        core.debug(`An asset called ${assetName} already exists. Download URL: ${duplicate_asset.browser_download_url}`);
+        core.info(`An asset called ${assetName} already exists. Download URL: ${duplicate_asset.browser_download_url}`);
         return;
       }
     } else {
