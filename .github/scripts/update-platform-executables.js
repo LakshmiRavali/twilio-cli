@@ -77,7 +77,7 @@ const updatePlatformExecutables = async () => {
           asset_id: duplicate_asset.id
         })
       } else {
-        core.setFailed(`An asset called ${assetName} already exists. Download URL: ${duplicate_asset.browser_download_url}`);
+        core.debug(`An asset called ${assetName} already exists. Download URL: ${duplicate_asset.browser_download_url}`);
         return;
       }
     } else {
