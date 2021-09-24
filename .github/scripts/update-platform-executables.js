@@ -57,15 +57,13 @@ const updatePlatformExecutables = async () => {
     const file_bytes = fs.readFileSync(file);
 
     // Check for duplicates.
-    const assets = await github.paginate(
-      github.repos.listReleaseAssets,
+    const assets = await github.repos.listAssetsForRelease(
       {
         owner,
         repo,
         release_id: oldReleaseId
-      }
-    )
-    const duplicate_asset = assets.find(a => a.name === assetName)
+      });
+    const duplicate_asset = assets.data.find(a => a.name === assetName);
     core.info(`Duplicate asset: ${duplicate_asset}`);
     if (duplicate_asset !== undefined) {
       if (overwrite) {
