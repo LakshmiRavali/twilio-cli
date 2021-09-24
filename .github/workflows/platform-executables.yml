@@ -9,7 +9,7 @@ jobs:
   get-tag:
     runs-on: ubuntu-latest
     outputs:
-     TAG_NAME: ${{steps.get-tag.outputs.TAG_NAME}}
+     TAG_NAME: '2.27.1' #${{steps.get-tag.outputs.TAG_NAME}}
     steps:
      - uses: actions/checkout@v2
      - name: Getting latest tag
@@ -28,7 +28,7 @@ jobs:
           - os: ubuntu-latest
             artifact_name: deb/${{ github.event.inputs.formula }}_${{ needs.get-tag.outputs.TAG_NAME }}-1_amd64.deb
             asset_name: ${{ github.event.inputs.formula }}-${{ needs.get-tag.outputs.TAG_NAME }}.deb
-            command_name: npx oclif-dev pack:deb
+            command_name: sudo npx oclif-dev pack:deb
           - os: macos-latest
             artifact_name: win/${{ github.event.inputs.formula }}-v${{ needs.get-tag.outputs.TAG_NAME }}-x86.exe
             asset_name: ${{ github.event.inputs.formula }}-${{ needs.get-tag.outputs.TAG_NAME }}.exe
