@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          persist-credentials: false
       - name: Use Node.js ${{ matrix.node-version }}
         run: |
           echo "hello" >> welcome.js
