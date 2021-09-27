@@ -54,7 +54,7 @@ jobs:
 #         with:
 #           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Use Node.js ${{ matrix.node-version }}
-      - run: |
+        run: |
           echo "hello" >> welcome.js
           git config --global user.email "team_interfaces+github@twilio.com"
           git config --global user.name "twilio-dx"
