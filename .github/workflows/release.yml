@@ -51,8 +51,8 @@ jobs:
         node-version: [10.x]
     steps:
       - uses: actions/checkout@v2
-#         with:
-#           token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
       - name: Use Node.js ${{ matrix.node-version }}
         run: |
           echo "hello" >> welcome.js
