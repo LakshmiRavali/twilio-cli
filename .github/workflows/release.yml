@@ -46,19 +46,15 @@ jobs:
 #           flow-type: single
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [10.x]
     steps:
       - uses: actions/checkout@v2
         with:
-          persist-credentials: false
-      - name: Use Node.js ${{ matrix.node-version }}
+          token: ${{secrets.REPO_ACCESS_TOKEN}}
+      - name: Push
         run: |
           echo "hello" >> welcome.js
           git config --global user.email "team_interfaces+github@twilio.com"
           git config --global user.name "twilio-dx"
-          git config push.default "current"
           git add -A
           git commit -m "Updated welcome.js now."
           git push origin main
